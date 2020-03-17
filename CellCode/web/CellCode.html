@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Hello World</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="js/bootstrap.min.js"></script>
+</head>
+<style>
+    html,body{
+        padding: 0px;
+        margin: 0px;
+        height: 100%;
+        width: 100%;
+    }
+    #leftPart{
+        float: left;
+        width: 40%;
+        height: 100%;
+        /*border: 1px yellow solid;*/
+    }
+    #rightPartLayout{
+        float: right;
+        width: 57%;
+        height: 93%;
+        /*border: 1px blue solid ;*/
+    }
+    #rightPartHeader{
+        float: right;
+        width: 60%;
+        height: 5%;
+        /*border: 1px orange solid ;*/
+    }
+    #selected{
+        float: left;
+        height: 100%;
+        width: 85%;
+        /*border: fuchsia solid 1px;*/
+    }
+    #faculty{
+        float: right;
+        height: 100%;
+        width: 15%;
+        /*border: green solid 1px;*/
+    }
+    #searchBar{
+        width: 100%;
+        height: 5%;
+        /*border: 1px purple solid;*/
+    }
+    #codeResultList{
+        width: 100%;
+        height: 45%;
+        /*border: 1px black solid;*/
+    }
+    #code{
+        width: 100%;
+        height: 45%;
+        /*border: 1px black solid;*/
+    }
+    #codeFacultySearch{
+        width: 100%;
+        height: 5%;
+        /*border: 1px blue solid;*/
+    }
+    #searchBarLogo{
+        width: 100%;
+        height: 100%;
+    }
+    .Panel{
+        height: 100%;
+    }
+
+</style>
+<body class="container-fluid">
+<div id="leftPart">
+    <!--
+    左上方的搜索栏
+    -->
+    <div id="searchBar" class="container-fluid">
+        <form action="#">
+            <div class="col-lg-2">
+                <img src="img/logo/logo/细胞代码横版.png" id="searchBarLogo" class="img-responsive img-circle" alt="">
+            </div>
+            <div class="col-lg-10">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Go!</button>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="codeResultList">
+        <div class="panel panel-success Panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">完整程序：</h3>
+            </div>
+            <div class="panel-body" >
+
+            </div>
+        </div>
+    </div>
+    <div id="code">
+        <div class="panel panel-primary Panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">功能代码区：</h3>
+            </div>
+            <div class="panel-body" >
+
+            </div>
+        </div>
+    </div>
+    <!--
+    左下方的功能搜索栏
+    -->
+    <div id="codeFacultySearch">
+        <form action="#">
+            <div class="col-lg-12">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="功能块搜索栏">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">搜索</button>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="rightPartHeader">
+
+</div>
+<div id="rightPartLayout">
+    <div id="selected">
+        <div class="panel panel-default Panel">
+            <div class="panel-body">
+                <ul class="nav nav-tabs nav-justified">
+                    <li role="presentation" class="active"><a href="#">程序块工作区</a></li>
+                    <li role="presentation"><a href="#">代码编写区</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="faculty">
+        <div class="container-fluid">
+            <a class="btn btn-default col-lg-12" href="#" role="button">分享给社区论坛</a>
+            <a class="btn btn-default col-lg-12" href="#" role="button">测试</a>
+            <a class="btn btn-default col-lg-12" href="#" role="button">导出</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
