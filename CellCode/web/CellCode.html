@@ -15,6 +15,43 @@
     <script src="js/bootstrap.min.js"></script>
 </head>
 <style>
+    .overview-item--c1 {
+        background-image: -moz-linear-gradient(90deg, #3f5efb 0%, #fc466b 100%);
+        background-image: -webkit-linear-gradient(90deg, #3f5efb 0%, #fc466b 100%);
+        background-image: -ms-linear-gradient(90deg, #3f5efb 0%, #fc466b 100%);
+    }
+    #tug{
+        /*left: 30px;
+        top: 30px;*/
+        z-index: 5;
+        position: absolute;
+    }
+    .overview-item {
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        padding: 30px;
+        padding-bottom: 30px;
+        padding-bottom: 0;
+        -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+        margin-bottom: 40px;
+    }
+    * {
+        margin: 0;
+        margin-bottom: 0px;
+        padding: 0;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    body {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1.625;
+        color: #666;
+    }
     html,body{
         padding: 0px;
         margin: 0px;
@@ -35,13 +72,13 @@
         margin-bottom: 3%;
         /*border: 1px blue solid ;*/
     }
-    #rightPartHeader{
+    /*#rightPartHeader{
         float: right;
         width: 54%;
         height: 5%;
         margin: 3%;
         border: 1px orange solid ;
-    }
+    }*/
     #selected{
         float: left;
         height: 100%;
@@ -96,31 +133,52 @@
         bottom: -75%;
     }
 </style>
-<script>
-    function createBlock(id) {
-        var element = document.getElementById(id);
-        if(element.getContext){
-            var context = element.getContext("2d");
-            context.fillStyle="#ff0000";
-            context.fillRect(10,10,210,210);
-        }
-    }
-    function pull(id){
-        var id = document.getElementById(id);
-        var flag = false;
-        id.onmousedown = function (e) {
-            id.onmousemove = function (e) {
-                id.style.left=window.event.clientX-75+"px";
-                id.style.top=window.event.clientY-75+"px";
+<script type="text/javascript" src="js/dnd.js">
+    function tug_pull(id){
+        var tug_demo = document.getElementById("tug");
+        var left = tug_demo.style.left;
+        var top = tug_demo.style.top;
+
+        tug_demo.onmousedown = function (e) {
+
+            var event1 = window.event || e;
+
+            var startX = event1.clientX;
+
+            var startY = event1.clientY;
+
+            document.onmousemove = function (j) {
+
+                var event2 = window.event || j;
+                var endX = event2.clientX;
+                var endY = event2.clientY;
+
+                tug_demo.style.left = tug_demo.offsetLeft + (endX - startX) + "px";
+                tug_demo.style.top = tug_demo.offsetTop + (endY - startY) + "px";
+
+                startX = endX;
+                startY = endY;
+
+
             }
         }
-        id.onmouseup = function () {
-            id.onmousemove=null;
+
+        tug_demo.onmouseup = function () {
+            var workPlace = document.getElementById("work-place");
+            /*if(!(tug_demo.style.left>=workPlace.style.left&&tug_demo.style.right<=workPlace.style.right)){
+                if(!(tug_demo.style.top<=workPlace.style.top&&tug_demo.style.bottom>=workPlace.style.bottom)){
+                    tug_demo.style.left=left+"px";
+                    tug_demo.style.top=top+"px";
+                }
+            }*/
+
+
+            document.onmousemove = null;
         }
     }
     window.onload = function () {
-        createBlock("block")
-        pull("demo");
+        // tug_pull("tug");
+
 
     }
 </script>
@@ -177,8 +235,11 @@
             </div>
             <div class="panel-body" >
 
-                <div id="demo" style="position: absolute">
-                    <canvas id="block" width="150" height="150"> demo</canvas>
+                <div id="tug" class="overview-item overview-item--c1 drag" style="height: 100px;width: 200px;border: #0000FF;">
+                    <div class="text ">
+
+                        <h2 style="position: absolute;font-size: 15px;top:15px;left: 30px;color: #3f5efb">Hello world：</h2>
+                    </div>
                 </div>
             </div>
             <!--
@@ -221,11 +282,31 @@
             </ul>
 
             <!-- Tab panes -->
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane fade active" id="work-place">这里什么也没有</div>
-                <div role="tabpanel" class="tab-pane fade" id="code-place">这里也是</div>
+            <div class="tab-content drop" style="height: 100%;width: 100%;border: 2px solid black">
+                <div role="tabpanel" class="tab-pane fade active " id="work-place" >
+                    <span >这里什么也没有</span>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="code-place">
+                    这里也是
+                </div>
             </div>
-
+            <script>
+                var Drop=dnd.Drop;
+                var Drag=dnd.Drag;
+                var drag = document.getElementsByClassName("drag");
+                var drop = document.getElementsByClassName("drop");
+                new Drag(drag[0],{
+                    onDragEnd:function (params) {
+                        console.warn("dsfasf");
+                    }
+                });
+                new Drop(drop[0],{
+                    onDrop: function (params) {
+                        params.el.appendChild(params.sourceNode);
+                        console.warn("sdjfosajf");
+                    }
+                });
+            </script>
         </div>
     </div>
     <!--

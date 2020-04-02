@@ -13,41 +13,35 @@
     <script src="js/jquery-3.2.1.min.js"></script>
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
 
-    <script >
-        window.onload = function () {
+    <script type="text/javascript" src="js/dnd.js">
 
-            var element = document.getElementById("block");
-            if(element.getContext){
-                var context = element.getContext("2d");
-                context.fillStyle="#ff0000";
-                // context.strokeStyle="#ff0000";
-                context.fillRect(10,10,210,210);console.warn("down");
-            }
-            var id = document.getElementById("demo");
-            var flag = false;
-            id.onmousedown = function (e) {
-                console.warn("down");
-                flag=true;
-
-            }
-            id.onmousemove = function (e) {
-                if(flag){
-                    id.style.left=window.event.clientX-50+"px";
-                    id.style.top=window.event.clientY-50+"px";
-                    console.warn("move");
-                }
-
-            }
-            id.onmouseup = function () {
-                flag = false;
-            }
-
-        }
     </script>
+    <style>
+        html, body { width:100%; height:100%; }
+
+    </style>
 </head>
 <body>
-<div id="demo" style="border: #2aabd2 1px solid; position: absolute">
-    <canvas id="block" width="500" height="500"> demo</canvas>
+<div class="drop" style="border: 2px solid black;width: 100%;height: 50%"></div>
+<div class="drag" style="border: 2px solid black;width: 25%;height: 10%"></div>
+<div class="drag" style="border: 2px solid black;width: 25%;height: 10%"></div>
+<div class="drag" style="border: 2px solid black;width: 25%;height: 10%"></div>
+
 </div>
+</body>
+
+<script>
+    var Drag = dnd.Drag;
+    var Drop = dnd.Drop;
+    var drag = document.getElementsByClassName("drag");
+    new Drag(drag[0]);
+    new Drag(drag[1]);
+    new Drag(drag[2]);
+    new Drop('.drop', {
+        onDrop: function (params) {
+            params.el.appendChild(params.sourceNode);
+        }
+    })
+</script>
 </body>
 </html>
